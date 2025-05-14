@@ -1,12 +1,52 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import { useEffect } from "react";
+import Header from "@/components/Header";
+import HeroSection from "@/components/HeroSection";
+import ServicesSection from "@/components/ServicesSection";
+import PortfolioSection from "@/components/PortfolioSection";
+import PricingSection from "@/components/PricingSection";
+import ContactSection from "@/components/ContactSection";
+import Footer from "@/components/Footer";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const Index = () => {
+  // Функция для анимации элементов при скролле
+  useEffect(() => {
+    const animateOnScroll = () => {
+      const elements = document.querySelectorAll('.animate-on-scroll');
+      
+      elements.forEach((element) => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (elementPosition < windowHeight - 100) {
+          element.classList.add('animated');
+        }
+      });
+    };
+    
+    // Инициализация анимации при загрузке страницы
+    setTimeout(animateOnScroll, 100);
+    
+    // Обработчик события прокрутки
+    window.addEventListener('scroll', animateOnScroll);
+    
+    // Очистка обработчика при размонтировании компонента
+    return () => {
+      window.removeEventListener('scroll', animateOnScroll);
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 color-black text-black">Добро пожаловать!</h1>
-        <p className="text-xl text-gray-600">тут будет отображаться ваш проект</p>
-      </div>
+    <div className="min-h-screen">
+      <Header />
+      <HeroSection />
+      <ServicesSection />
+      <PortfolioSection />
+      <PricingSection />
+      <ContactSection />
+      <Footer />
+      <ScrollToTop />
     </div>
   );
 };
